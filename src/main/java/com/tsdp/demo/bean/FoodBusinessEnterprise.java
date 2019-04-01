@@ -27,6 +27,7 @@ public class FoodBusinessEnterprise {
     private String issuingAuthority;
     private String status;
     private String reportingTelephone;
+    @Field(type=FieldType.Keyword)
     private String province;
     private String memo;
 

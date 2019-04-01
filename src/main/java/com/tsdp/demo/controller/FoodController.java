@@ -11,10 +11,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.common.lucene.search.function.CombineFunction;
 import org.elasticsearch.common.lucene.search.function.FunctionScoreQuery;
 import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.QueryStringQueryBuilder;
-import org.elasticsearch.index.query.WildcardQueryBuilder;
 import org.elasticsearch.index.query.functionscore.FunctionScoreQueryBuilder;
 import org.elasticsearch.search.SearchHits;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,18 +45,127 @@ public class FoodController {
     @Autowired
     private ElasticsearchTemplate elasticsearchTemplate;
 
+    @RequestMapping("/search")
+    public String search() {
+        String keyWorld = "晋AA3510144";
+        
+        String licenseNumber = "晋AB3590125-?";
+        String province = "山西省";
+        String type = "食品";
+        String validityStart = "";
+        String validityEnd = "";
+        String issuingDateStart = "";
+        String issuingDateEnd = "";
+        
+        List<Map<String, Object>> map = null;
+        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+        // 范围（从数据库取数据）
+        List<String> indices = new ArrayList<String>();
+        if (type.equals("食品")) {
+            indices.add("drugbusinessenterprise");
+            indices.add("foodbusinessenterprise");
+        }
+        
+        // 省份
+        if (StringUtils.isNotBlank(province)) {
+            //boolQuery.must(QueryBuilders.matchQuery("province", province));
+        }
+        // 备案许可号
+        if (StringUtils.isNotBlank(licenseNumber)) {
+//            boolQuery.must(QueryBuilders.queryStringQuery(licenseNumber).field("licenseNumber"));
+//            boolQuery.must(QueryBuilders.termQuery("licenseNumber", licenseNumber));
+//            boolQuery.must(QueryBuilders.fuzzyQuery("licenseNumber", licenseNumber));
+            boolQuery.must(QueryBuilders.wildcardQuery("licenseNumber", licenseNumber));
+        }
+        // 有效期起
+        if (StringUtils.isNotBlank(validityStart)) {
+//            boolQuery.must(QueryBuilders.rangeQuery("expirationDate").gte(validityStart));
+        }
+        // 有效期至
+        if (StringUtils.isNotBlank(validityEnd)) {
+//            boolQuery.must(QueryBuilders.rangeQuery("expirationDate").lte(validityEnd));
+        }
+        
+        // 主页搜索
+        if (StringUtils.isNotBlank(keyWorld)) {
+//            boolQuery.must(QueryBuilders.queryStringQuery(keyWorld));
+        }
+        
+        
+        PageRequest pageRequest = PageRequest.of(0, 100);
+        SearchQuery searchQuery = new NativeSearchQueryBuilder().withIndices(indices.toArray(new String[] {}))
+                .withQuery(boolQuery).withPageable(pageRequest).build();
+        
+        map = query(searchQuery);
+        
+
+        String json = new Gson().toJson(map);
+        return json;
+    }
+
+    @RequestMapping("/searchAl")
+    public String searchAl() {
+        String licenseNumber = "晋AA3510144";
+//        licenseNumber = "晋AA351014";
+        List<DrugBusinessEnterprise> content = null;
+        if (StringUtils.isNotBlank(licenseNumber)) {
+            BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+//            boolQuery.must(QueryBuilders.termQuery("licenseNumber", licenseNumber));
+//            boolQuery.must(QueryBuilders.matchQuery("licenseNumber", licenseNumber));
+            boolQuery.must(QueryBuilders.fuzzyQuery("licenseNumber", licenseNumber));
+//            boolQuery.must(QueryBuilders.queryStringQuery(licenseNumber).field("licenseNumber"));
+            
+            PageRequest pageRequest = PageRequest.of(0, 100);
+            // 2.构建查询
+            NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
+            // 将搜索条件设置到构建中
+            nativeSearchQueryBuilder.withQuery(boolQuery);
+            // 将分页设置到构建中
+            nativeSearchQueryBuilder.withPageable(pageRequest);
+            // 将排序设置到构建中
+            // nativeSearchQueryBuilder.withSort(sort);
+            // 生产NativeSearchQuery
+            NativeSearchQuery query = nativeSearchQueryBuilder.build();
+            Page<DrugBusinessEnterprise> search = drugBEDao.search(query);
+            content = search.getContent();
+            
+        }
+        String json = new Gson().toJson(content);
+        return json;
+    }
+
+    private List<Map<String, Object>> query(SearchQuery query) {
+        List<Map<String, Object>> map = elasticsearchTemplate.query(query, response -> {
+            SearchHits hits = response.getHits();
+            List<Map<String, Object>> list = new ArrayList<>();
+            Arrays.stream(hits.getHits()).forEach(h -> {
+                Map<String, Object> source = h.getSourceAsMap();
+                source.put("_score", h.getScore());
+                source.put("_index", h.getIndex());
+                source.put("_type", h.getType());
+                source.put("_id", h.getId());
+                list.add(source);
+            });
+            return list;
+        });
+        return map;
+    }
+
     @RequestMapping("/es")
     public String es() {
-        String keyword = "苹果";
+        String keyword = "晋AA351014";
         String keyword2 = "禹丰达";
+        String province = "北京市";
         QueryStringQueryBuilder queryBuilder = QueryBuilders.queryStringQuery(keyword);
         BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
         boolQuery.should(queryBuilder);
-        boolQuery.should(QueryBuilders.matchQuery("enterpriseName", keyword2));
+//        boolQuery.should(QueryBuilders.matchQuery("enterpriseName", keyword2));
+//        boolQuery.should(QueryBuilders.matchQuery("province", province));
+
+        String[] indices = { "drugbusinessenterprise", "foodbusinessenterprise" };
         SearchQuery searchQuery = new NativeSearchQueryBuilder()
                 // 可以直接使用别名
-                .withIndices("drugbusinessenterprise", "foodbusinessenterprise")
-                .withQuery(boolQuery)
+                .withIndices(indices).withQuery(boolQuery)
                 // .withFields("enterpriseName")
                 // .addAggregation(sumBuilder)
                 .withPageable(PageRequest.of(0, 1111)).build();

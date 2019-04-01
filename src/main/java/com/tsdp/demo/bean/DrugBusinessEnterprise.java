@@ -1,11 +1,15 @@
 package com.tsdp.demo.bean;
 
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 @Document(indexName = "drugbusinessenterprise", type = "DrugBusinessEnterprise")
 public class DrugBusinessEnterprise {
     private Long id;
+    @Field(type=FieldType.Keyword)
     private String licenseNumber;
+    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
     private String enterpriseName;
     private String enterpriseNameEN;
     private String socialCreditCode;
@@ -21,9 +25,10 @@ public class DrugBusinessEnterprise {
     private String issuingPersone;
     private String dailySupervisoryAuthority;
     private String dailySupervisore;
-    private String estatus;
     private String classificationCode;
+    @Field(type=FieldType.Keyword)
     private String province;
+    private String status;
     private String reportingTelephone;
     private String memo;
 
@@ -155,14 +160,6 @@ public class DrugBusinessEnterprise {
         this.dailySupervisore = dailySupervisore;
     }
 
-    public String getEstatus() {
-        return estatus;
-    }
-
-    public void setEstatus(String estatus) {
-        this.estatus = estatus;
-    }
-
     public String getClassificationCode() {
         return classificationCode;
     }
@@ -203,6 +200,14 @@ public class DrugBusinessEnterprise {
         this.id = id;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "DrugBusinessEnterprise [id=" + id + ", licenseNumber=" + licenseNumber + ", enterpriseName="
@@ -212,8 +217,8 @@ public class DrugBusinessEnterprise {
                 + ", productionAddress=" + productionAddress + ", productionScope=" + productionScope + ", issuingDate="
                 + issuingDate + ", expirationDate=" + expirationDate + ", issuingAuthority=" + issuingAuthority
                 + ", issuingPersone=" + issuingPersone + ", dailySupervisoryAuthority=" + dailySupervisoryAuthority
-                + ", dailySupervisore=" + dailySupervisore + ", estatus=" + estatus + ", classificationCode="
-                + classificationCode + ", province=" + province + ", reportingTelephone=" + reportingTelephone
+                + ", dailySupervisore=" + dailySupervisore + ", classificationCode=" + classificationCode
+                + ", province=" + province + ", status=" + status + ", reportingTelephone=" + reportingTelephone
                 + ", memo=" + memo + "]";
     }
 
