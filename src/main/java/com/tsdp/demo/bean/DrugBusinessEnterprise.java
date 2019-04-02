@@ -1,35 +1,55 @@
 package com.tsdp.demo.bean;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
 @Document(indexName = "drugbusinessenterprise", type = "DrugBusinessEnterprise")
 public class DrugBusinessEnterprise {
+    @Id
     private Long id;
     @Field(type=FieldType.Keyword)
     private String licenseNumber;
     @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
     private String enterpriseName;
+    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
     private String enterpriseNameEN;
+    @Field(type=FieldType.Keyword)
     private String socialCreditCode;
+    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
     private String legalRepresentative;
+    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
     private String enterprisePersonCharge;
+    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
     private String qualityPersonCharge;
+    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
     private String registeredAddress;
+    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
     private String productionAddress;
+    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
     private String productionScope;
+    @Field(type=FieldType.Keyword)
     private String issuingDate;
+    @Field(type=FieldType.Keyword)
     private String expirationDate;
+    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
     private String issuingAuthority;
+    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
     private String issuingPersone;
+    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
     private String dailySupervisoryAuthority;
+    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
     private String dailySupervisore;
+    @Field(type=FieldType.Keyword)
     private String classificationCode;
     @Field(type=FieldType.Keyword)
     private String province;
+    @Field(type=FieldType.Keyword)
     private String status;
+    @Field(type=FieldType.Keyword)
     private String reportingTelephone;
+    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
     private String memo;
 
     public String getLicenseNumber() {

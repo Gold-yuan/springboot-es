@@ -36,7 +36,7 @@ import com.tsdp.demo.dao.FoodBusinessEnterpriseRepository;
 
 @RestController
 @RequestMapping("/")
-public class FoodController {
+public class EsController {
 
     @Autowired
     private FoodBusinessEnterpriseRepository foodBEDao;
@@ -47,7 +47,7 @@ public class FoodController {
 
     @RequestMapping("/search")
     public String search() {
-        String keyWorld = "晋AA3510144";
+        String keyWorld = "同仁堂";
         
         String licenseNumber = "晋AB3590125-?";
         String province = "山西省";
@@ -75,7 +75,7 @@ public class FoodController {
 //            boolQuery.must(QueryBuilders.queryStringQuery(licenseNumber).field("licenseNumber"));
 //            boolQuery.must(QueryBuilders.termQuery("licenseNumber", licenseNumber));
 //            boolQuery.must(QueryBuilders.fuzzyQuery("licenseNumber", licenseNumber));
-            boolQuery.must(QueryBuilders.wildcardQuery("licenseNumber", licenseNumber));
+//            boolQuery.must(QueryBuilders.wildcardQuery("licenseNumber", licenseNumber));
         }
         // 有效期起
         if (StringUtils.isNotBlank(validityStart)) {
@@ -88,7 +88,7 @@ public class FoodController {
         
         // 主页搜索
         if (StringUtils.isNotBlank(keyWorld)) {
-//            boolQuery.must(QueryBuilders.queryStringQuery(keyWorld));
+            boolQuery.must(QueryBuilders.queryStringQuery(keyWorld));
         }
         
         
