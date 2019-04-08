@@ -42,7 +42,7 @@ public class EsController {
     private FoodBusinessEnterpriseRepository foodBEDao;
     @Autowired
     private DrugBusinessEnterpriseRepository drugBEDao;
-    @Autowired
+//    @Autowired
     private ElasticsearchTemplate elasticsearchTemplate;
 
     @RequestMapping("/search")

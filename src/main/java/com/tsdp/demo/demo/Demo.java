@@ -28,8 +28,6 @@ public class Demo {
 
     @Autowired
     private FoodBusinessEnterpriseRepository dao;
-    @Autowired
-    private ElasticsearchTemplate elasticsearchTemplate;
 
     @Test
     public void aaaa() {
