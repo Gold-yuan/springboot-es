@@ -47,7 +47,7 @@ public class EsController {
 
     @RequestMapping("/search")
     public String search() {
-        String keyWorld = "同仁堂";
+        String keyWorld = "晋AA3530103";
         
         String licenseNumber = "晋AB3590125-?";
         String province = "山西省";

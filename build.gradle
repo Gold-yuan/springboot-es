@@ -10,6 +10,8 @@ version = '0.1'
 sourceCompatibility = '1.8'
 
 repositories {
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+    maven { url "https://artifacts.elastic.co/maven" }
 	mavenCentral()
 }
 
@@ -20,6 +22,7 @@ dependencies {
     implementation 'com.google.code.gson:gson'
     implementation 'com.alibaba:fastjson:1.2.56'
     implementation 'commons-httpclient:commons-httpclient:3.1'
+    implementation 'org.elasticsearch.client:x-pack-transport:6.2.2'
     
     
     
