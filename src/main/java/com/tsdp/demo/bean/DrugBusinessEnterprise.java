@@ -5,52 +5,65 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
+/**
+ * 2、药品经营企业
+ * 
+ **/
 @Document(indexName = "drugbusinessenterprise", type = "DrugBusinessEnterprise")
+//indexName索引名称 可以理解为数据库名 必须为小写 不然会报org.elasticsearch.indices.InvalidIndexNameException异常
+//type类型 可以理解为表名
 public class DrugBusinessEnterprise {
     @Id
+    @Field(type = FieldType.Keyword)
     private Long id;
-    @Field(type=FieldType.Keyword)
+    @Field(type = FieldType.Keyword)
     private String licenseNumber;
-    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
-    private String enterpriseName;
-    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
+    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+    private String enterpriseNameCN;
+    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
     private String enterpriseNameEN;
-    @Field(type=FieldType.Keyword)
+    @Field(type = FieldType.Keyword)
     private String socialCreditCode;
-    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
+    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
     private String legalRepresentative;
-    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
+    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
     private String enterprisePersonCharge;
-    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
+    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
     private String qualityPersonCharge;
-    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
-    private String registeredAddress;
-    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
-    private String productionAddress;
-    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
-    private String productionScope;
-    @Field(type=FieldType.Keyword)
+    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+    private String address;
+    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+    private String warehouseAddress;
+    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+    private String scope;
+    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+    private String modeOperation;
+    @Field(type = FieldType.Keyword)
     private String issuingDate;
-    @Field(type=FieldType.Keyword)
+    @Field(type = FieldType.Keyword)
     private String expirationDate;
-    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
+    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
     private String issuingAuthority;
-    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
-    private String issuingPersone;
-    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
-    private String dailySupervisoryAuthority;
-    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
-    private String dailySupervisore;
-    @Field(type=FieldType.Keyword)
-    private String classificationCode;
-    @Field(type=FieldType.Keyword)
-    private String province;
-    @Field(type=FieldType.Keyword)
+    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
     private String status;
-    @Field(type=FieldType.Keyword)
-    private String reportingTelephone;
-    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
+    @Field(type = FieldType.Keyword)
+    private String GSPLicenseNumber;
+    @Field(type = FieldType.Keyword)
+    private String GSPIssuingDate;
+    @Field(type = FieldType.Keyword)
+    private String GSPexpirationDate;
+    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+    private String province;
+    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
     private String memo;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getLicenseNumber() {
         return licenseNumber;
@@ -60,12 +73,12 @@ public class DrugBusinessEnterprise {
         this.licenseNumber = licenseNumber;
     }
 
-    public String getEnterpriseName() {
-        return enterpriseName;
+    public String getEnterpriseNameCN() {
+        return enterpriseNameCN;
     }
 
-    public void setEnterpriseName(String enterpriseName) {
-        this.enterpriseName = enterpriseName;
+    public void setEnterpriseNameCN(String enterpriseNameCN) {
+        this.enterpriseNameCN = enterpriseNameCN;
     }
 
     public String getEnterpriseNameEN() {
@@ -108,28 +121,16 @@ public class DrugBusinessEnterprise {
         this.qualityPersonCharge = qualityPersonCharge;
     }
 
-    public String getRegisteredAddress() {
-        return registeredAddress;
+    public void setWarehouseAddress(String warehouseAddress) {
+        this.warehouseAddress = warehouseAddress;
     }
 
-    public void setRegisteredAddress(String registeredAddress) {
-        this.registeredAddress = registeredAddress;
+    public String getModeOperation() {
+        return modeOperation;
     }
 
-    public String getProductionAddress() {
-        return productionAddress;
-    }
-
-    public void setProductionAddress(String productionAddress) {
-        this.productionAddress = productionAddress;
-    }
-
-    public String getProductionScope() {
-        return productionScope;
-    }
-
-    public void setProductionScope(String productionScope) {
-        this.productionScope = productionScope;
+    public void setModeOperation(String modeOperation) {
+        this.modeOperation = modeOperation;
     }
 
     public String getIssuingDate() {
@@ -156,36 +157,36 @@ public class DrugBusinessEnterprise {
         this.issuingAuthority = issuingAuthority;
     }
 
-    public String getIssuingPersone() {
-        return issuingPersone;
+    public String getStatus() {
+        return status;
     }
 
-    public void setIssuingPersone(String issuingPersone) {
-        this.issuingPersone = issuingPersone;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public String getDailySupervisoryAuthority() {
-        return dailySupervisoryAuthority;
+    public String getGSPLicenseNumber() {
+        return GSPLicenseNumber;
     }
 
-    public void setDailySupervisoryAuthority(String dailySupervisoryAuthority) {
-        this.dailySupervisoryAuthority = dailySupervisoryAuthority;
+    public void setGSPLicenseNumber(String gSPLicenseNumber) {
+        GSPLicenseNumber = gSPLicenseNumber;
     }
 
-    public String getDailySupervisore() {
-        return dailySupervisore;
+    public String getGSPIssuingDate() {
+        return GSPIssuingDate;
     }
 
-    public void setDailySupervisore(String dailySupervisore) {
-        this.dailySupervisore = dailySupervisore;
+    public void setGSPIssuingDate(String gSPIssuingDate) {
+        GSPIssuingDate = gSPIssuingDate;
     }
 
-    public String getClassificationCode() {
-        return classificationCode;
+    public String getGSPexpirationDate() {
+        return GSPexpirationDate;
     }
 
-    public void setClassificationCode(String classificationCode) {
-        this.classificationCode = classificationCode;
+    public void setGSPexpirationDate(String gSPexpirationDate) {
+        GSPexpirationDate = gSPexpirationDate;
     }
 
     public String getProvince() {
@@ -196,14 +197,6 @@ public class DrugBusinessEnterprise {
         this.province = province;
     }
 
-    public String getReportingTelephone() {
-        return reportingTelephone;
-    }
-
-    public void setReportingTelephone(String reportingTelephone) {
-        this.reportingTelephone = reportingTelephone;
-    }
-
     public String getMemo() {
         return memo;
     }
@@ -212,34 +205,36 @@ public class DrugBusinessEnterprise {
         this.memo = memo;
     }
 
-    public Long getId() {
-        return id;
+    public String getAddress() {
+        return address;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getStatus() {
-        return status;
+    public String getScope() {
+        return scope;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setScope(String scope) {
+        this.scope = scope;
+    }
+
+    public String getWarehouseAddress() {
+        return warehouseAddress;
     }
 
     @Override
     public String toString() {
-        return "DrugBusinessEnterprise [id=" + id + ", licenseNumber=" + licenseNumber + ", enterpriseName="
-                + enterpriseName + ", enterpriseNameEN=" + enterpriseNameEN + ", socialCreditCode=" + socialCreditCode
+        return "DrugBusinessEnterprise [id=" + id + ", licenseNumber=" + licenseNumber + ", enterpriseNameCN="
+                + enterpriseNameCN + ", enterpriseNameEN=" + enterpriseNameEN + ", socialCreditCode=" + socialCreditCode
                 + ", legalRepresentative=" + legalRepresentative + ", enterprisePersonCharge=" + enterprisePersonCharge
-                + ", qualityPersonCharge=" + qualityPersonCharge + ", registeredAddress=" + registeredAddress
-                + ", productionAddress=" + productionAddress + ", productionScope=" + productionScope + ", issuingDate="
+                + ", qualityPersonCharge=" + qualityPersonCharge + ", address=" + address + ", warehouseAddress="
+                + warehouseAddress + ", scope=" + scope + ", modeOperation=" + modeOperation + ", issuingDate="
                 + issuingDate + ", expirationDate=" + expirationDate + ", issuingAuthority=" + issuingAuthority
-                + ", issuingPersone=" + issuingPersone + ", dailySupervisoryAuthority=" + dailySupervisoryAuthority
-                + ", dailySupervisore=" + dailySupervisore + ", classificationCode=" + classificationCode
-                + ", province=" + province + ", status=" + status + ", reportingTelephone=" + reportingTelephone
-                + ", memo=" + memo + "]";
+                + ", status=" + status + ", GSPLicenseNumber=" + GSPLicenseNumber + ", GSPIssuingDate=" + GSPIssuingDate
+                + ", GSPexpirationDate=" + GSPexpirationDate + ", province=" + province + ", memo=" + memo + " ]";
     }
 
 }

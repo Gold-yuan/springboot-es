@@ -48,7 +48,7 @@ public class EsController {
     @RequestMapping("/search")
     public String search() {
         String keyWorld = "晋AA3530103";
-        
+
         String licenseNumber = "晋AB3590125-?";
         String province = "山西省";
         String type = "食品";
@@ -56,7 +56,7 @@ public class EsController {
         String validityEnd = "";
         String issuingDateStart = "";
         String issuingDateEnd = "";
-        
+
         List<Map<String, Object>> map = null;
         BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
         // 范围（从数据库取数据）
@@ -65,10 +65,10 @@ public class EsController {
             indices.add("drugbusinessenterprise");
             indices.add("foodbusinessenterprise");
         }
-        
+
         // 省份
         if (StringUtils.isNotBlank(province)) {
-            //boolQuery.must(QueryBuilders.matchQuery("province", province));
+            // boolQuery.must(QueryBuilders.matchQuery("province", province));
         }
         // 备案许可号
         if (StringUtils.isNotBlank(licenseNumber)) {
@@ -85,19 +85,17 @@ public class EsController {
         if (StringUtils.isNotBlank(validityEnd)) {
 //            boolQuery.must(QueryBuilders.rangeQuery("expirationDate").lte(validityEnd));
         }
-        
+
         // 主页搜索
         if (StringUtils.isNotBlank(keyWorld)) {
             boolQuery.must(QueryBuilders.queryStringQuery(keyWorld));
         }
-        
-        
+
         PageRequest pageRequest = PageRequest.of(0, 100);
         SearchQuery searchQuery = new NativeSearchQueryBuilder().withIndices(indices.toArray(new String[] {}))
                 .withQuery(boolQuery).withPageable(pageRequest).build();
-        
+
         map = query(searchQuery);
-        
 
         String json = new Gson().toJson(map);
         return json;
@@ -114,7 +112,7 @@ public class EsController {
 //            boolQuery.must(QueryBuilders.matchQuery("licenseNumber", licenseNumber));
             boolQuery.must(QueryBuilders.fuzzyQuery("licenseNumber", licenseNumber));
 //            boolQuery.must(QueryBuilders.queryStringQuery(licenseNumber).field("licenseNumber"));
-            
+
             PageRequest pageRequest = PageRequest.of(0, 100);
             // 2.构建查询
             NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
@@ -128,7 +126,7 @@ public class EsController {
             NativeSearchQuery query = nativeSearchQueryBuilder.build();
             Page<DrugBusinessEnterprise> search = drugBEDao.search(query);
             content = search.getContent();
-            
+
         }
         String json = new Gson().toJson(content);
         return json;
@@ -215,8 +213,8 @@ public class EsController {
     public FoodBusinessEnterprise save() {
         FoodBusinessEnterprise food = new FoodBusinessEnterprise();
         food.setId(System.currentTimeMillis());
-        food.setBusinessAddress("天津市");
-        food.setBusinessScope("辣片");
+        food.setAddress("天津市");
+        food.setScope("辣片");
         food.setEnterpriseName("天津清华智信");
         food.setEnterpriseNameEN("beijingThinghuaZhixin");
         food.setExpirationDate("2222-02-22");

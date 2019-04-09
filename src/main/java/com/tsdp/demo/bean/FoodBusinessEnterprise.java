@@ -5,49 +5,54 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
+/**
+ * 16、食品经营企业
+ */
+
 @Document(indexName = "foodbusinessenterprise", type = "FoodBusinessEnterprise")
 //indexName索引名称 可以理解为数据库名 必须为小写 不然会报org.elasticsearch.indices.InvalidIndexNameException异常
 //type类型 可以理解为表名
 public class FoodBusinessEnterprise {
     @Id
+    @Field(type = FieldType.Keyword)
     private Long id;
-    @Field(type=FieldType.Keyword)
+    @Field(type = FieldType.Keyword)
     private String licenseNumber;
-    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
+    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
     private String enterpriseName;
-    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
+    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
     private String enterpriseNameEN;
-    @Field(type=FieldType.Keyword)
+    @Field(type = FieldType.Keyword)
     private String socialCreditCode;
-    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
+    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
     private String legalRepresentative;
-    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
+    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
     private String enterpriseResidence;
-    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
-    private String businessAddress;
-    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
+    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+    private String address;
+    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
     private String mainBusinessFormat;
-    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
-    private String businessScope;
-    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
+    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+    private String scope;
+    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
     private String dailySupervisoryAuthority;
-    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
+    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
     private String dailySuperviso;
-    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
+    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
     private String issuingPerson;
-    @Field(type=FieldType.Keyword)
+    @Field(type = FieldType.Keyword)
     private String issuingDate;
-    @Field(type=FieldType.Keyword)
+    @Field(type = FieldType.Keyword)
     private String expirationDate;
-    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
+    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
     private String issuingAuthority;
-    @Field(type=FieldType.Keyword)
+    @Field(type = FieldType.Keyword)
     private String status;
-    @Field(type=FieldType.Keyword)
+    @Field(type = FieldType.Keyword)
     private String reportingTelephone;
-    @Field(type=FieldType.Keyword)
+    @Field(type = FieldType.Keyword)
     private String province;
-    @Field(type=FieldType.Text,searchAnalyzer="ik_smart",analyzer="ik_max_word")
+    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
     private String memo;
 
     public String getLicenseNumber() {
@@ -98,28 +103,12 @@ public class FoodBusinessEnterprise {
         this.enterpriseResidence = enterpriseResidence;
     }
 
-    public String getBusinessAddress() {
-        return businessAddress;
-    }
-
-    public void setBusinessAddress(String businessAddress) {
-        this.businessAddress = businessAddress;
-    }
-
     public String getMainBusinessFormat() {
         return mainBusinessFormat;
     }
 
     public void setMainBusinessFormat(String mainBusinessFormat) {
         this.mainBusinessFormat = mainBusinessFormat;
-    }
-
-    public String getBusinessScope() {
-        return businessScope;
-    }
-
-    public void setBusinessScope(String businessScope) {
-        this.businessScope = businessScope;
     }
 
     public String getDailySupervisoryAuthority() {
@@ -210,17 +199,34 @@ public class FoodBusinessEnterprise {
         this.id = id;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getScope() {
+        return scope;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
+    }
+
     @Override
     public String toString() {
         return "FoodBusinessEnterprise [id=" + id + ", licenseNumber=" + licenseNumber + ", enterpriseName="
                 + enterpriseName + ", enterpriseNameEN=" + enterpriseNameEN + ", socialCreditCode=" + socialCreditCode
                 + ", legalRepresentative=" + legalRepresentative + ", enterpriseResidence=" + enterpriseResidence
-                + ", businessAddress=" + businessAddress + ", mainBusinessFormat=" + mainBusinessFormat
-                + ", businessScope=" + businessScope + ", dailySupervisoryAuthority=" + dailySupervisoryAuthority
-                + ", dailySuperviso=" + dailySuperviso + ", issuingPerson=" + issuingPerson + ", issuingDate="
-                + issuingDate + ", expirationDate=" + expirationDate + ", issuingAuthority=" + issuingAuthority
-                + ", status=" + status + ", reportingTelephone=" + reportingTelephone + ", province=" + province
-                + ", memo=" + memo + "]";
+                + ", address=" + address + ", mainBusinessFormat=" + mainBusinessFormat + ", scope=" + scope
+                + ", dailySupervisoryAuthority=" + dailySupervisoryAuthority + ", dailySuperviso=" + dailySuperviso
+                + ", issuingPerson=" + issuingPerson + ", issuingDate=" + issuingDate + ", expirationDate="
+                + expirationDate + ", issuingAuthority=" + issuingAuthority + ", status=" + status
+                + ", reportingTelephone=" + reportingTelephone + ", province=" + province + ", memo=" + memo + "]";
     }
+    
+    
 
 }
