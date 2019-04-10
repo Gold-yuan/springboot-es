@@ -54,6 +54,16 @@ public class FoodBusinessEnterprise {
     private String province;
     @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
     private String memo;
+    @Field(type = FieldType.Keyword)
+    private String category;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     public String getLicenseNumber() {
         return licenseNumber;

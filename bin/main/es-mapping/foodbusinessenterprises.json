@@ -1,0 +1,93 @@
+{
+	"FoodBusinessEnterprises": {
+		"properties": {
+			"address": {
+				"type": "text",
+				"analyzer": "ik_max_word",
+				"search_analyzer": "ik_smart"
+			},
+			"category": {
+				"type": "keyword"
+			},
+			"dailySuperviso": {
+				"type": "text",
+				"analyzer": "ik_max_word",
+				"search_analyzer": "ik_smart"
+			},
+			"dailySupervisoryAuthority": {
+				"type": "text",
+				"analyzer": "ik_max_word",
+				"search_analyzer": "ik_smart"
+			},
+			"enterpriseName": {
+				"type": "text",
+				"analyzer": "ik_max_word",
+				"search_analyzer": "ik_smart"
+			},
+			"enterpriseNameEN": {
+				"type": "text",
+				"analyzer": "ik_max_word",
+				"search_analyzer": "ik_smart"
+			},
+			"enterpriseResidence": {
+				"type": "text",
+				"analyzer": "ik_max_word",
+				"search_analyzer": "ik_smart"
+			},
+			"expirationDate": {
+				"type": "keyword"
+			},
+			"id": {
+				"type": "keyword"
+			},
+			"issuingAuthority": {
+				"type": "text",
+				"analyzer": "ik_max_word",
+				"search_analyzer": "ik_smart"
+			},
+			"issuingDate": {
+				"type": "keyword"
+			},
+			"issuingPerson": {
+				"type": "text",
+				"analyzer": "ik_max_word",
+				"search_analyzer": "ik_smart"
+			},
+			"legalRepresentative": {
+				"type": "text",
+				"analyzer": "ik_max_word",
+				"search_analyzer": "ik_smart"
+			},
+			"licenseNumber": {
+				"type": "keyword"
+			},
+			"mainBusinessFormat": {
+				"type": "text",
+				"analyzer": "ik_max_word",
+				"search_analyzer": "ik_smart"
+			},
+			"memo": {
+				"type": "text",
+				"analyzer": "ik_max_word",
+				"search_analyzer": "ik_smart"
+			},
+			"province": {
+				"type": "keyword"
+			},
+			"reportingTelephone": {
+				"type": "keyword"
+			},
+			"scope": {
+				"type": "text",
+				"analyzer": "ik_max_word",
+				"search_analyzer": "ik_smart"
+			},
+			"socialCreditCode": {
+				"type": "keyword"
+			},
+			"status": {
+				"type": "keyword"
+			}
+		}
+	}
+}

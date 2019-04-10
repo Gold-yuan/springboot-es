@@ -1,20 +1,28 @@
 package com.tsdp.demo.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.lucene.search.function.CombineFunction;
 import org.elasticsearch.common.lucene.search.function.FunctionScoreQuery;
+import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.QueryStringQueryBuilder;
+import org.elasticsearch.index.query.WildcardQueryBuilder;
 import org.elasticsearch.index.query.functionscore.FunctionScoreQueryBuilder;
 import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -33,11 +41,14 @@ import com.tsdp.demo.bean.DrugBusinessEnterprise;
 import com.tsdp.demo.bean.FoodBusinessEnterprise;
 import com.tsdp.demo.dao.DrugBusinessEnterpriseRepository;
 import com.tsdp.demo.dao.FoodBusinessEnterpriseRepository;
+import com.tsdp.demo.util.ESHighLevelRestUtil;
 
 @RestController
 @RequestMapping("/")
 public class EsController {
 
+    @Autowired
+    private ESHighLevelRestUtil esClientUtil;
     @Autowired
     private FoodBusinessEnterpriseRepository foodBEDao;
     @Autowired
@@ -280,4 +291,49 @@ public class EsController {
         return new NativeSearchQueryBuilder().withPageable(pageable).withQuery(query).build();
     }
 
+    @Autowired
+    RestHighLevelClient highLevelClient;
+
+    /**
+     * 搜索
+     * 
+     * @return
+     */
+    @RequestMapping("/rest")
+    public String testEsRestClient() {
+        WildcardQueryBuilder query = QueryBuilders.wildcardQuery("licenseNumber", "*JY*");
+        List<Map<String, Object>> search = esClientUtil.search(query, "foodbusinessenterprise");
+        return new Gson().toJson(search);
+    }
+
+    @RequestMapping("/saveRest")
+    public String saveEsRestClient() {
+        SearchRequest searchRequest = new SearchRequest("foodbusinessenterprise");
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+        sourceBuilder.query(QueryBuilders.wildcardQuery("licenseNumber", "*JY*"));
+        sourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));
+        searchRequest.source(sourceBuilder);
+        try {
+            SearchResponse response = highLevelClient.search(searchRequest);
+            List<Map<String, Object>> list = new ArrayList<>();
+            Arrays.stream(response.getHits().getHits()).forEach(i -> {
+                Map<String, Object> source = i.getSourceAsMap();
+                source.put("_score", i.getScore());
+                source.put("_index", i.getIndex());
+                source.put("_type", i.getType());
+                source.put("_id", i.getId());
+                list.add(source);
+
+                System.out.println(i.getIndex());
+                System.out.println(i.getSourceAsString());
+                System.out.println(i.getScore());
+                System.out.println(i.getType());
+            });
+            System.out.println(response.getHits().getTotalHits());
+            return new Gson().toJson(list);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
 }

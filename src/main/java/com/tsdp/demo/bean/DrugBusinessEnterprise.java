@@ -19,7 +19,7 @@ public class DrugBusinessEnterprise {
     @Field(type = FieldType.Keyword)
     private String licenseNumber;
     @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
-    private String enterpriseNameCN;
+    private String enterpriseName;
     @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
     private String enterpriseNameEN;
     @Field(type = FieldType.Keyword)
@@ -56,6 +56,16 @@ public class DrugBusinessEnterprise {
     private String province;
     @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
     private String memo;
+    @Field(type = FieldType.Keyword)
+    private String category;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     public Long getId() {
         return id;
@@ -73,12 +83,12 @@ public class DrugBusinessEnterprise {
         this.licenseNumber = licenseNumber;
     }
 
-    public String getEnterpriseNameCN() {
-        return enterpriseNameCN;
+    public String getEnterpriseName() {
+        return enterpriseName;
     }
 
-    public void setEnterpriseNameCN(String enterpriseNameCN) {
-        this.enterpriseNameCN = enterpriseNameCN;
+    public void setEnterpriseName(String enterpriseName) {
+        this.enterpriseName = enterpriseName;
     }
 
     public String getEnterpriseNameEN() {
@@ -227,8 +237,8 @@ public class DrugBusinessEnterprise {
 
     @Override
     public String toString() {
-        return "DrugBusinessEnterprise [id=" + id + ", licenseNumber=" + licenseNumber + ", enterpriseNameCN="
-                + enterpriseNameCN + ", enterpriseNameEN=" + enterpriseNameEN + ", socialCreditCode=" + socialCreditCode
+        return "DrugBusinessEnterprise [id=" + id + ", licenseNumber=" + licenseNumber + ", enterpriseName="
+                + enterpriseName + ", enterpriseNameEN=" + enterpriseNameEN + ", socialCreditCode=" + socialCreditCode
                 + ", legalRepresentative=" + legalRepresentative + ", enterprisePersonCharge=" + enterprisePersonCharge
                 + ", qualityPersonCharge=" + qualityPersonCharge + ", address=" + address + ", warehouseAddress="
                 + warehouseAddress + ", scope=" + scope + ", modeOperation=" + modeOperation + ", issuingDate="
