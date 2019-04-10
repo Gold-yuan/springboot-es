@@ -44,7 +44,7 @@ public class DrugBusinessEnterprise {
     private String expirationDate;
     @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
     private String issuingAuthority;
-    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+    @Field(type = FieldType.Keyword)
     private String status;
     @Field(type = FieldType.Keyword)
     private String GSPLicenseNumber;
@@ -52,7 +52,7 @@ public class DrugBusinessEnterprise {
     private String GSPIssuingDate;
     @Field(type = FieldType.Keyword)
     private String GSPexpirationDate;
-    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+    @Field(type = FieldType.Keyword)
     private String province;
     @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
     private String memo;

@@ -50,7 +50,7 @@ public class ElasticsearchRestClient {
     @Value("${elasticsearch.pwd}")
     private String password;
 
-    @Bean
+//    @Bean
     public RestClientBuilder restClientBuilderAuth() {
         HttpHost[] hosts = Arrays.stream(ipAddress).map(this::makeHttpHost).filter(Objects::nonNull)
                 .toArray(HttpHost[]::new);
@@ -71,7 +71,7 @@ public class ElasticsearchRestClient {
         return builder;
     }
 
-//    @Bean
+    @Bean
     public RestClientBuilder restClientBuilder() {
         HttpHost[] hosts = Arrays.stream(ipAddress).map(this::makeHttpHost).filter(Objects::nonNull)
                 .toArray(HttpHost[]::new);
