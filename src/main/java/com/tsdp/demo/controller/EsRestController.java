@@ -21,7 +21,7 @@ public class EsRestController {
 
     @RequestMapping("/save")
     public String search() {
-        String className = FoodBusinessEnterprise.class.getSimpleName();
+        String className = FoodBusinessEnterprise.class.getSimpleName()+"s";
         try {
             Resource res = new ClassPathResource("es-mapping/" + className.toLowerCase() + ".json");
             // ② 将文件内容拷贝到一个 String 中
