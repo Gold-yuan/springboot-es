@@ -28,7 +28,7 @@ public class EsRestController {
 
     @RequestMapping("/createIndex")
     public String createIndex() {
-        String className = FoodBusinessEnterprise.class.getSimpleName() + "s";
+        String className = "FoodBusinessEnterprises";
         try {
             Resource res = new ClassPathResource("es-mapping/" + className.toLowerCase() + ".json");
             // ② 将文件内容拷贝到一个 String 中

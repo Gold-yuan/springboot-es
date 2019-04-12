@@ -1,60 +1,53 @@
 package com.tsdp.demo.bean;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
-
 /**
  * 16、食品经营企业
  */
 
-@Document(indexName = "foodbusinessenterprise", type = "FoodBusinessEnterprise")
 //indexName索引名称 可以理解为数据库名 必须为小写 不然会报org.elasticsearch.indices.InvalidIndexNameException异常
 //type类型 可以理解为表名
 public class FoodBusinessEnterprise {
-    @Id
-    @Field(type = FieldType.Keyword)
+
     private Long id;
-    @Field(type = FieldType.Keyword)
+
     private String licenseNumber;
-    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+
     private String enterpriseName;
-    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+
     private String enterpriseNameEN;
-    @Field(type = FieldType.Keyword)
+
     private String socialCreditCode;
-    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+
     private String legalRepresentative;
-    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+
     private String enterpriseResidence;
-    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+
     private String address;
-    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+
     private String mainBusinessFormat;
-    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+
     private String scope;
-    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+
     private String dailySupervisoryAuthority;
-    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+
     private String dailySuperviso;
-    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+
     private String issuingPerson;
-    @Field(type = FieldType.Keyword)
+
     private String issuingDate;
-    @Field(type = FieldType.Keyword)
+
     private String expirationDate;
-    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+
     private String issuingAuthority;
-    @Field(type = FieldType.Keyword)
+
     private String status;
-    @Field(type = FieldType.Keyword)
+
     private String reportingTelephone;
-    @Field(type = FieldType.Keyword)
+
     private String province;
-    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+
     private String memo;
-    @Field(type = FieldType.Keyword)
+
     private String category;
 
     public String getCategory() {
@@ -225,7 +218,6 @@ public class FoodBusinessEnterprise {
         this.scope = scope;
     }
 
-    @Override
     public String toString() {
         return "FoodBusinessEnterprise [id=" + id + ", licenseNumber=" + licenseNumber + ", enterpriseName="
                 + enterpriseName + ", enterpriseNameEN=" + enterpriseNameEN + ", socialCreditCode=" + socialCreditCode
@@ -236,7 +228,5 @@ public class FoodBusinessEnterprise {
                 + expirationDate + ", issuingAuthority=" + issuingAuthority + ", status=" + status
                 + ", reportingTelephone=" + reportingTelephone + ", province=" + province + ", memo=" + memo + "]";
     }
-    
-    
 
 }

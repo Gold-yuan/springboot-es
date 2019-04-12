@@ -1,62 +1,56 @@
 package com.tsdp.demo.bean;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
-
 /**
  * 2、药品经营企业
  * 
  **/
-@Document(indexName = "drugbusinessenterprise", type = "DrugBusinessEnterprise")
+
 //indexName索引名称 可以理解为数据库名 必须为小写 不然会报org.elasticsearch.indices.InvalidIndexNameException异常
 //type类型 可以理解为表名
 public class DrugBusinessEnterprise {
-    @Id
-    @Field(type = FieldType.Keyword)
+
     private Long id;
-    @Field(type = FieldType.Keyword)
+
     private String licenseNumber;
-    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+
     private String enterpriseName;
-    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+
     private String enterpriseNameEN;
-    @Field(type = FieldType.Keyword)
+
     private String socialCreditCode;
-    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+
     private String legalRepresentative;
-    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+
     private String enterprisePersonCharge;
-    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+
     private String qualityPersonCharge;
-    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+
     private String address;
-    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+
     private String warehouseAddress;
-    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+
     private String scope;
-    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+
     private String modeOperation;
-    @Field(type = FieldType.Keyword)
+
     private String issuingDate;
-    @Field(type = FieldType.Keyword)
+
     private String expirationDate;
-    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+
     private String issuingAuthority;
-    @Field(type = FieldType.Keyword)
+
     private String status;
-    @Field(type = FieldType.Keyword)
+
     private String GSPLicenseNumber;
-    @Field(type = FieldType.Keyword)
+
     private String GSPIssuingDate;
-    @Field(type = FieldType.Keyword)
+
     private String GSPexpirationDate;
-    @Field(type = FieldType.Keyword)
+
     private String province;
-    @Field(type = FieldType.Text, searchAnalyzer = "ik_smart", analyzer = "ik_max_word")
+
     private String memo;
-    @Field(type = FieldType.Keyword)
+
     private String category;
 
     public String getCategory() {
@@ -235,7 +229,6 @@ public class DrugBusinessEnterprise {
         return warehouseAddress;
     }
 
-    @Override
     public String toString() {
         return "DrugBusinessEnterprise [id=" + id + ", licenseNumber=" + licenseNumber + ", enterpriseName="
                 + enterpriseName + ", enterpriseNameEN=" + enterpriseNameEN + ", socialCreditCode=" + socialCreditCode

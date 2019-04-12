@@ -11,16 +11,12 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.ElasticsearchException;
 import org.elasticsearch.action.DocWriteResponse;
-import org.elasticsearch.action.admin.indices.alias.Alias;
 import org.elasticsearch.action.admin.indices.close.CloseIndexRequest;
-import org.elasticsearch.action.admin.indices.close.CloseIndexResponse;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
-import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
 import org.elasticsearch.action.admin.indices.get.GetIndexRequest;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequest;
-import org.elasticsearch.action.admin.indices.mapping.put.PutMappingResponse;
 import org.elasticsearch.action.admin.indices.open.OpenIndexRequest;
 import org.elasticsearch.action.admin.indices.open.OpenIndexResponse;
 import org.elasticsearch.action.bulk.BulkItemResponse;
@@ -33,6 +29,7 @@ import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.support.WriteRequest;
+import org.elasticsearch.action.support.master.AcknowledgedResponse;
 import org.elasticsearch.action.support.replication.ReplicationResponse;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.client.RequestOptions;
@@ -125,7 +122,7 @@ public class ESHighLevelRestUtil {
     public boolean deleteIndex(String... index) throws Exception {
         try {
             DeleteIndexRequest request = new DeleteIndexRequest(index);
-            DeleteIndexResponse deleteIndexResponse = client.indices().delete(request, RequestOptions.DEFAULT);
+            AcknowledgedResponse deleteIndexResponse = client.indices().delete(request, RequestOptions.DEFAULT);
             return deleteIndexResponse.isAcknowledged();
         } catch (ElasticsearchException exception) {
             if (exception.status() == RestStatus.NOT_FOUND) {
@@ -167,7 +164,7 @@ public class ESHighLevelRestUtil {
             return;
         }
         CloseIndexRequest request = new CloseIndexRequest(indexName);
-        CloseIndexResponse response = client.indices().close(request, RequestOptions.DEFAULT);
+        AcknowledgedResponse response = client.indices().close(request, RequestOptions.DEFAULT);
         if (response.isAcknowledged()) {
             logger.info("{} 索引已关闭！", indexName);
         }
@@ -184,7 +181,7 @@ public class ESHighLevelRestUtil {
         PutMappingRequest request = new PutMappingRequest(index).type(type);
         try {
             request.source(generateBuilder());
-            PutMappingResponse response = client.indices().putMapping(request, RequestOptions.DEFAULT);
+            AcknowledgedResponse response = client.indices().putMapping(request, RequestOptions.DEFAULT);
             if (response.isAcknowledged()) {
                 logger.info("已成功对\"index={}, type={}\"的文档设置类型映射！", index, type);
             }

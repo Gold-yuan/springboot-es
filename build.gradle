@@ -16,15 +16,14 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.apache.commons:commons-lang3'
     implementation 'com.google.code.gson:gson'
     implementation 'com.alibaba:fastjson:1.2.56'
     implementation 'commons-httpclient:commons-httpclient:3.1'
-    // implementation 'org.elasticsearch.client:x-pack-transport:6.3.2'
-    implementation 'org.elasticsearch.client:elasticsearch-rest-client:6.4.3'
-    implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:6.4.3'
+    implementation 'org.elasticsearch:elasticsearch:7.0.0'
+    implementation 'org.elasticsearch.client:elasticsearch-rest-client:7.0.0'
+    implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.0.0'
     
     
     
